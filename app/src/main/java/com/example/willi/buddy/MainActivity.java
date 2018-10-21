@@ -1,5 +1,6 @@
 package com.example.willi.buddy;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -18,15 +19,20 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_Quiz:
-                    mTextMessage.setText(R.string.title_quiz);
+                    startActivity(new Intent(MainActivity.this, quiz_home.class));
                     return true;
                 case R.id.navigation_todo:
-                    mTextMessage.setText(R.string.title_Todo);
+                    startActivity(new Intent(MainActivity.this, Todo.class));
                     return true;
             }
             return false;
         }
     };
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
