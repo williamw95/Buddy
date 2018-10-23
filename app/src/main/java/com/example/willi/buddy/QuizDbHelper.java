@@ -5,18 +5,22 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
 import com.example.willi.buddy.QuizContract;
 
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class QuizDbHelper extends SQLiteOpenHelper {
 
+    private static final String TAG = "DatabaseHelper";
     private static final String DATABASE_NAME = "Quiz.db";
     private static final int DATABASE_VERSION = 1;
-
-    private SQLiteDatabase db;
 
     //to-do table
     private static final String TABLE_TO_DO = "todoList";
@@ -29,11 +33,11 @@ public class QuizDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        this.db = db;
+        //this.db = db;
+        Log.d(TAG, "onCreate: Database creating");
 
-        final String SQL_CREATE_QUIZBANK = "CREATE TABLE " +
-                QuizContract.QuestionsTable.TABLE_NAME + " ( " +
-                QuizContract.QuestionsTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+        String SQL_CREATE_QUIZBANK = "CREATE TABLE " +
+                QuizContract.QuestionsTable.TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 QuizContract.QuestionsTable.COLUMN_QUESTION + " TEXT, " +
                 QuizContract.QuestionsTable.COLUMN_OPTION1 + " TEXT, " +
                 QuizContract.QuestionsTable.COLUMN_OPTION2 + " TEXT, " +
@@ -41,34 +45,39 @@ public class QuizDbHelper extends SQLiteOpenHelper {
                 QuizContract.QuestionsTable.COLUMN_ANSWER_NR + " INTEGER, " +
                 QuizContract.QuestionsTable.COLUMN_RESOURCE + " TEXT, " +
                 QuizContract.QuestionsTable.COLUMN_IDENTIFIER + " INTEGER" +
-                ")"
-                ;
-                db.execSQL(SQL_CREATE_QUIZBANK);
-                 fillQuizBank();
+                " );";
+
+
+        sqLiteDatabase.execSQL(SQL_CREATE_QUIZBANK);
+        Log.d(TAG, "onCreate: Database created");
+                 fillQuizBank(sqLiteDatabase);
+
 
         final String SQL_CREATE_TODO = "CREATE TABLE " +
                 TABLE_TO_DO + " ( " +
                 KEY_TO_DO + "TexT " +
                 " ) "
                 ;
-            db.execSQL(SQL_CREATE_TODO);
+            //db.execSQL(SQL_CREATE_TODO);
     }
 
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
+        sqLiteDatabase.execSQL("DROP IF TABLE EXISTS " + QuizContract.QuestionsTable.TABLE_NAME);
+        onCreate(sqLiteDatabase);
     }
-    private void fillQuizBank() {
+    private void fillQuizBank(SQLiteDatabase db) {
         Question q1 = new Question("Hello World","A","B","C",1,"https://stackoverflow.com/",1);
-        insertToDB(q1);
+        insertToDB(q1,db);
         Question q2 = new Question("Testing","A","B","C",2,"https://stackoverflow.com/",2);
-        insertToDB(q2);
+        insertToDB(q2,db);
         Question q3 = new Question("Experiment","A","B","C",3,"https://stackoverflow.com/",3);
-        insertToDB(q3);
+        insertToDB(q3,db);
     }
-    private void insertToDB(Question question){
+    private void insertToDB(Question question, SQLiteDatabase sqLiteDatabase){
         ContentValues cv = new ContentValues();
+        Log.d(TAG, "insertToDB: content v created");
         cv.put(QuizContract.QuestionsTable.COLUMN_QUESTION,question.getQuestion());
         cv.put(QuizContract.QuestionsTable.COLUMN_OPTION1,question.getOption1());
         cv.put(QuizContract.QuestionsTable.COLUMN_OPTION2,question.getOption2());
@@ -76,13 +85,16 @@ public class QuizDbHelper extends SQLiteOpenHelper {
         cv.put(QuizContract.QuestionsTable.COLUMN_ANSWER_NR,question.getAnswerNr());
         cv.put(QuizContract.QuestionsTable.COLUMN_RESOURCE,question.getResource());
         cv.put(QuizContract.QuestionsTable.COLUMN_IDENTIFIER,question.getQuizIdentifier());
-        db.insert(QuizContract.QuestionsTable.TABLE_NAME,null,cv);
+        Log.d(TAG, "insertToDB: cv.put establish");
+        sqLiteDatabase.insert(QuizContract.QuestionsTable.TABLE_NAME,null,cv);
+        Log.d(TAG, "insertToDB: db data insert");
     }
 
-    public List<Question> getAllQuestions() {
+    public List<Question> getAllQuestions(int cat) {
         List<Question> questionList = new ArrayList<>();
-        db = getReadableDatabase();
-        Cursor c = db.rawQuery("SELECT * FROM " + QuizContract.QuestionsTable.TABLE_NAME,null);
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM " + QuizContract.QuestionsTable.TABLE_NAME +
+                " WHERE " + QuizContract.QuestionsTable.COLUMN_IDENTIFIER + " = '" + cat + "'",null);
 
         if (c.moveToFirst()) {
             do {

@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(new Intent(MainActivity.this, quiz_home.class));
                     return true;
                 case R.id.navigation_todo:
-                    startActivity(new Intent(MainActivity.this, toDo.class));
+                    startActivity(new Intent(MainActivity.this, to_do.class));
                     return true;
             }
             return false;

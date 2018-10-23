@@ -19,11 +19,11 @@ import java.util.List;
 
 public class quiz_home extends AppCompatActivity {
 
-    public static final String QUIZCAT = "QUIZ CAT:";
+    //public static final int QUIZCAT = 0;
     Button c1, c2, c3;
     private ProgressDialog progressBar;
 
-    Intent intent = new Intent(quiz_home.this, quiz_start.class);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +40,9 @@ public class quiz_home extends AppCompatActivity {
         c1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                intent.putExtra(QUIZCAT, 1);
+                Intent intent = new Intent(quiz_home.this, quiz_start.class);
+                intent.putExtra("quizCat", 1);
                 startActivity(intent);
-
 
                 //To show button click
 /*                new Handler().postDelayed(new Runnable() {@Override public void run(){}}, 400);
@@ -67,7 +66,8 @@ public class quiz_home extends AppCompatActivity {
         c2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.putExtra(QUIZCAT, 2);
+                Intent intent = new Intent(quiz_home.this, quiz_start.class);
+                intent.putExtra("quizCat", 2);
                 startActivity(intent);
             }
         });
@@ -75,7 +75,8 @@ public class quiz_home extends AppCompatActivity {
         c3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.putExtra(QUIZCAT, 3);
+                Intent intent = new Intent(quiz_home.this, quiz_start.class);
+                intent.putExtra("quizCat", 3);
                 startActivity(intent);
             }
         });
@@ -106,7 +107,7 @@ public class quiz_home extends AppCompatActivity {
                     return true;
                 case R.id.navigation_todo:
                     //mTextMessage.setText(R.string.title_Todo);
-                    startActivity(new Intent(quiz_home.this, toDo.class));
+                    startActivity(new Intent(quiz_home.this, to_do.class));
                     return true;
             }
             return false;

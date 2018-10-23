@@ -10,6 +10,8 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class quiz_start extends AppCompatActivity {
@@ -18,6 +20,9 @@ public class quiz_start extends AppCompatActivity {
     Button OptA, OptB, OptC, OptD;
 
     private List<Question> questionList;
+    private int questionCounter, questioncountTotal;
+    private Question currentQuestion;
+    private boolean answered;
 
     @Override
     public void onBackPressed() {
@@ -48,11 +53,33 @@ public class quiz_start extends AppCompatActivity {
         OptC = findViewById(R.id.btnOptC);
         OptD = findViewById(R.id.btnOptD);
 
+        Intent intent = getIntent();
+        final int questcat = intent.getIntExtra("quizCat", 0);
+        QuizDbHelper dbHelper = new QuizDbHelper(this);
+        questionList = dbHelper.getAllQuestions(questcat);
+        questioncountTotal = questionList.size();
+        Collections.shuffle(questionList);
+
+        showNextQuestion();
+
         OptA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(quiz_start.this, popup.class));
             }
         });
+    }
+
+    private void showNextQuestion() {
+        if (questionCounter < questioncountTotal){
+            currentQuestion = questionList.get(questionCounter);
+            ques.setText(currentQuestion.getQuestion());
+            OptA.setText(currentQuestion.getOption1());
+            OptB.setText(currentQuestion.getOption2());
+            OptC.setText(currentQuestion.getOption3());
+            questionCounter++;
+            answered = false;
+        }
+
     }
 }
