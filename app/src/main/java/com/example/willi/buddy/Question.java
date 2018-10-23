@@ -8,10 +8,11 @@ public class Question {
     private int answerNr;
     private String resource;
     private int quizIdentifier;
+    private String title;
 
     public Question(){}
 
-    public Question(String question, String option1, String option2, String option3, int answerNr, String resource, int identifier) {
+    public Question(String question, String option1, String option2, String option3, int answerNr, String resource, int identifier, String title) {
         this.question = question;
         this.option1 = option1;
         this.option2 = option2;
@@ -19,6 +20,15 @@ public class Question {
         this.answerNr = answerNr;
         this.resource = resource;
         this.quizIdentifier = identifier;
+        this.title = title;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public int getQuizIdentifier() {
