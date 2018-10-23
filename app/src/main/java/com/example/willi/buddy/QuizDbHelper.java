@@ -145,6 +145,13 @@ public class QuizDbHelper extends SQLiteOpenHelper {
         return questionList;
     }
 
+    public Cursor getTODOData(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + QuizContract.UserTable.TABLE_UNAME;
+        Cursor data = db.rawQuery(query, null);
+        return data;
+    }
+
     //return true if record exist
     public boolean checkRowexist(String title){
         SQLiteDatabase db = this.getWritableDatabase();
