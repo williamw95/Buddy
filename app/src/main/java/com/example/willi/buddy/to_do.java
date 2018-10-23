@@ -7,12 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-public class Todo extends AppCompatActivity {
+public class to_do extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        startActivity(new Intent(Todo.this, MainActivity.class));
+        startActivity(new Intent(to_do.this, MainActivity.class));
     }
 
     @Override
@@ -32,7 +32,7 @@ public class Todo extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_Quiz:
-                    startActivity(new Intent(Todo.this, quiz_home.class));
+                    startActivity(new Intent(to_do.this, quiz_home.class));
                     return true;
                 case R.id.navigation_todo:
                     //mTextMessage.setText(R.string.title_Todo);
