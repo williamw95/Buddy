@@ -38,7 +38,8 @@
                 android:textAlignment="center"
                 android:visibility="visible"
                 android:textAllCaps="false"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:ellipsize="end"/>
             <Button
                 android:id="@+id/btnOptB"
                 android:layout_width="0dp"
@@ -49,7 +50,8 @@
                 android:visibility="visible"
                 android:textAlignment="center"
                 android:textAllCaps="false"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:ellipsize="end"/>
         </LinearLayout>
 
         <LinearLayout
@@ -67,7 +69,8 @@
                 android:visibility="visible"
                 android:textAlignment="center"
                 android:textAllCaps="false"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:ellipsize="end"/>
             <Button
                 android:id="@+id/btnOptD"
                 android:layout_width="0dp"
@@ -78,7 +81,8 @@
                 android:textAlignment="center"
                 android:foreground="?attr/selectableItemBackground"
                 android:textAllCaps="false"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:ellipsize="end"/>
         </LinearLayout>
         <TextView
             android:layout_width="match_parent"

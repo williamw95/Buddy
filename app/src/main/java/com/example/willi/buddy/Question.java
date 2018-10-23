@@ -15,7 +15,7 @@ public class Question {
 
 
 
-    public Question(String question, String option1, String option2, String option3, String option4, int answerNr, String resource, int identifier) {
+    public Question(String question, String option1, String option2, String option3, String option4, int answerNr, String resource, int identifier, String title) {
         this.question = question;
         this.option1 = option1;
         this.option2 = option2;

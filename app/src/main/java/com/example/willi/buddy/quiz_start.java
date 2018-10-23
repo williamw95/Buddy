@@ -26,6 +26,8 @@ public class quiz_start extends AppCompatActivity {
     private Question currentQuestion;
     private boolean answered;
     private TextView TxtCounter;
+    QuizDbHelper dbHelper;
+
 
     @Override
     public void onBackPressed() {
@@ -59,7 +61,7 @@ public class quiz_start extends AppCompatActivity {
 
         Intent intent = getIntent();
         final int questcat = intent.getIntExtra("quizCat", 0);
-        QuizDbHelper dbHelper = new QuizDbHelper(this);
+        dbHelper = new QuizDbHelper(this);
         questionList = dbHelper.getAllQuestions(questcat);
         questioncountTotal = questionList.size();
         Collections.shuffle(questionList);
@@ -71,17 +73,50 @@ public class quiz_start extends AppCompatActivity {
             public void onClick(View v) {
                 int answer = 1;
                 checkanswer(answer);
-                showNextQuestion();
+
+            }
+        });
+
+        OptB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int answer = 2;
+                checkanswer(answer);
+
+            }
+        });
+
+        OptC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int answer = 3;
+                checkanswer(answer);
+
+            }
+        });
+
+        OptD.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int answer = 4;
+                checkanswer(answer);
 
             }
         });
     }
 
     private void checkanswer(int answer) {
+        questionCounter++;
         if(answer == currentQuestion.getAnswerNr()){
             Toast toast = Toast.makeText(getApplicationContext(),"CORRECT!",Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER,0,0);
             toast.show();
+            if(questionCounter == questioncountTotal){
+                endquiz();
+            }
+            else{
+                showNextQuestion();
+            }
         }
         else
         {
@@ -90,27 +125,51 @@ public class quiz_start extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.cancel();
+                    if(questionCounter == questioncountTotal){
+                        endquiz();
+                    }
+                    else{
+                        showNextQuestion();
+                    }
                 }
             });
             AlertDialog alert = mBuilder.create();
             alert.show();
-        }
+            //check for existing row, if false, insert new row into To-DO table
+            if(dbHelper.checkRowexist(currentQuestion.getTitle()) == false)
+            {
+                dbHelper.addNewURL(currentQuestion.getTitle(),currentQuestion.getResource());
+            }
 
+        }
+    }
+
+    private void endquiz() {
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
+        mBuilder.setMessage("End of Quiz, your TO-DO list has been updated.").setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(quiz_start.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+        AlertDialog alert = mBuilder.create();
+        alert.show();
     }
 
     private void showNextQuestion() {
-        if (questionCounter < questioncountTotal){
+        if (questionCounter < questioncountTotal) {
+
             currentQuestion = questionList.get(questionCounter);
-            int qcount = questionCounter + 1;
-            TxtCounter.setText("Question no: "+ qcount + " / "+ questioncountTotal);
+            int qcount =  questionCounter+ 1;
+            TxtCounter.setText("Question no: " + qcount + " / " + questioncountTotal);
             ques.setText(currentQuestion.getQuestion());
             OptA.setText(currentQuestion.getOption1());
             OptB.setText(currentQuestion.getOption2());
             OptC.setText(currentQuestion.getOption3());
             OptD.setText(currentQuestion.getOption4());
-            questionCounter++;
+            //questionCounter++;
             answered = false;
         }
-
     }
 }
