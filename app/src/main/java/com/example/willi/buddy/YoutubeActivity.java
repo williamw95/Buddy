@@ -20,7 +20,7 @@ public class YoutubeActivity extends YouTubeBaseActivity implements YouTubePlaye
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_youtube);
+        //setContentView(R.layout.activity_youtube);
     }
 
     @Override

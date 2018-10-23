@@ -66,12 +66,7 @@ public class searchresult extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String newsearch = eTxtSearch.getText().toString();
-                if(!newsearch.equals(withspace)){
-                    newsearch = newsearch.replaceAll(" ", "+");
-                    Log.d(TAG, "onClick: search");
-                    //cleararray();
-                    initiatesearch(newsearch);
-                }
+                initiatesearch(newsearch);
             }
         });
     }

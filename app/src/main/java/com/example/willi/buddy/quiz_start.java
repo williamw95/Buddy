@@ -10,10 +10,14 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.List;
+
 public class quiz_start extends AppCompatActivity {
 
     TextView ques;
     Button OptA, OptB, OptC, OptD;
+
+    private List<Question> questionList;
 
     @Override
     public void onBackPressed() {

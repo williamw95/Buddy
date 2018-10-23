@@ -19,8 +19,11 @@ import java.util.List;
 
 public class quiz_home extends AppCompatActivity {
 
+    public static final String QUIZCAT = "QUIZ CAT:";
     Button c1, c2, c3;
     private ProgressDialog progressBar;
+
+    Intent intent = new Intent(quiz_home.this, quiz_start.class);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +40,13 @@ public class quiz_home extends AppCompatActivity {
         c1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                intent.putExtra(QUIZCAT, 1);
+                startActivity(intent);
+
+
                 //To show button click
-                new Handler().postDelayed(new Runnable() {@Override public void run(){}}, 400);
+/*                new Handler().postDelayed(new Runnable() {@Override public void run(){}}, 400);
                 //call dialog method
                 progressBar = new ProgressDialog(v.getContext());//Create new object of progress bar type
                 showdialog();
@@ -52,10 +60,25 @@ public class quiz_home extends AppCompatActivity {
                        //intent.putExtra(Message, "c1");//by this statement we are sending the name of the button that invoked the new Questions.java activity "Message" is defined by the name of the package + MESSAGE
                         startActivity(intent);
                     }
-                }, 2000);
+                }, 2000);*/
             }
         });
 
+        c2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra(QUIZCAT, 2);
+                startActivity(intent);
+            }
+        });
+
+        c3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra(QUIZCAT, 3);
+                startActivity(intent);
+            }
+        });
     }
 
     private void showdialog() {
@@ -83,7 +106,7 @@ public class quiz_home extends AppCompatActivity {
                     return true;
                 case R.id.navigation_todo:
                     //mTextMessage.setText(R.string.title_Todo);
-                    startActivity(new Intent(quiz_home.this, Todo.class));
+                    startActivity(new Intent(quiz_home.this, toDo.class));
                     return true;
             }
             return false;
