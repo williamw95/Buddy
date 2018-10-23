@@ -18,15 +18,21 @@ public class QuizDbHelper extends SQLiteOpenHelper {
 
     private SQLiteDatabase db;
 
-
+    //to-do table
+    private static final String TABLE_TO_DO = "todoList";
+    private static final String KEY_TO_DO = "todo";
 
     public QuizDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+
+
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         this.db = db;
+
+
 
         final String SQL_CREATE_QUIZBANK = "CREATE TABLE " +
                 QuizContract.QuestionsTable.TABLE_NAME + " ( " +
@@ -43,9 +49,12 @@ public class QuizDbHelper extends SQLiteOpenHelper {
                 db.execSQL(SQL_CREATE_QUIZBANK);
                  fillQuizBank();
 
-         
-
-
+        final String SQL_CREATE_TODO = "CREATE TABLE " +
+                TABLE_TO_DO + " ( " +
+                KEY_TO_DO + "TexT " +
+                " ) "
+                ;
+            db.execSQL(SQL_CREATE_TODO);
     }
 
 
