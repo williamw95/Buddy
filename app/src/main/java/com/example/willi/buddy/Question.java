@@ -9,6 +9,7 @@ public class Question {
     private int answerNr;
     private String resource;
     private int quizIdentifier;
+    private String title;
 
     public Question(){}
 
@@ -23,6 +24,15 @@ public class Question {
         this.answerNr = answerNr;
         this.resource = resource;
         this.quizIdentifier = identifier;
+        this.title = title;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
 
     }
 
