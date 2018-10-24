@@ -23,9 +23,10 @@
         <activity android:name=".searchresult" />
         <activity android:name=".quiz_start" />
         <activity android:name=".quiz_home" />
-        <activity android:name=".popup" />
         <activity android:name=".YoutubeActivity" />
-        <activity android:name=".to_do"></activity>
+        <activity android:name=".to_do" />
+        <activity android:name=".Todo_content" />
+        <activity android:name=".Youtube"></activity>
     </application>
 
 </manifest>

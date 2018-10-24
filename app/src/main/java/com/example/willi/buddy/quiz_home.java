@@ -12,18 +12,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.ProgressBar;
 
 import java.util.List;
 
 public class quiz_home extends AppCompatActivity {
 
-    //public static final int QUIZCAT = 0;
+
     Button c1, c2, c3;
-    private ProgressDialog progressBar;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,23 +38,6 @@ public class quiz_home extends AppCompatActivity {
                 Intent intent = new Intent(quiz_home.this, quiz_start.class);
                 intent.putExtra("quizCat", 1);
                 startActivity(intent);
-
-                //To show button click
-/*                new Handler().postDelayed(new Runnable() {@Override public void run(){}}, 400);
-                //call dialog method
-                progressBar = new ProgressDialog(v.getContext());//Create new object of progress bar type
-                showdialog();
-                //This handler will add a delay of 3 seconds
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        //Intent start to open the navigation drawer activity
-                        progressBar.cancel();//Progress bar will be cancelled (hide from screen) when this run function will execute after 3.5seconds
-                        Intent intent = new Intent(quiz_home.this, quiz_start.class);
-                       //intent.putExtra(Message, "c1");//by this statement we are sending the name of the button that invoked the new Questions.java activity "Message" is defined by the name of the package + MESSAGE
-                        startActivity(intent);
-                    }
-                }, 2000);*/
             }
         });
 
@@ -80,15 +58,6 @@ public class quiz_home extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    }
-
-    private void showdialog() {
-        progressBar.setCancelable(false);//Progress bar cannot be cancelled by pressing any where on screen
-        progressBar.setMessage("Getting Questions Ready ...");//Title shown in the progress bar
-        progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);//Style of the progress bar
-        progressBar.setProgress(0);//attributes
-        progressBar.setMax(100);//attributes
-        progressBar.show();//show the progress bar
     }
 
     public void onBackPressed() {

@@ -5,9 +5,9 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/cloudbackground"
     android:orientation="vertical"
-    tools:context=".MainActivity"
-    android:background="@color/colorYellow">
+    tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,43 +18,81 @@
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="111dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             app:srcCompat="@drawable/logo" />
 
-        <TextView
-            android:id="@+id/txtdesc"
+        <Button
+            android:id="@+id/home_btnQuiz"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
-            android:text="@string/app_desc"
-            android:textSize="18sp" />
-
-        <EditText
-            android:id="@+id/etxtSearch"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Search Stackoverflow.com" />
+            android:layout_height="150dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="5dp"
+            android:background="#ffdfba"
+            android:drawableTop="@drawable/ic_quizques"
+            android:paddingTop="10dp"
+            android:text="Quiz"
+            android:textColor="#808080"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            tools:shadowRadius=" " />
 
         <Button
-            android:id="@+id/btn_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Search" />
+            android:id="@+id/home_btnTodo"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="#baffc9"
+            android:drawableTop="@drawable/ic_to_dobig"
+            android:paddingTop="10dp"
+            android:text="To-Do"
+            android:textColor="#808080"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            tools:shadowRadius=" " />
+
+        <LinearLayout
+            android:id="@+id/linear"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:animationCache="false"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/etxtSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:hint="Search Stackoverflow.com" />
+
+            <Button
+                android:id="@+id/btn_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_search"
+                android:text="Search" />
+        </LinearLayout>
+
+
 
 
     </LinearLayout>
-
 
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
         android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
         android:background="?android:attr/windowBackground"
+        android:visibility="gone"
         app:menu="@menu/navigation" />
 
 </RelativeLayout>

@@ -74,6 +74,13 @@ public class to_do extends AppCompatActivity {
                 }
                 if(itemID > -1){
                     Log.d(TAG, "onItemClick: This ID is: " + itemID);
+                    Log.d(TAG, "onItemClick: title " + title);
+                    Log.d(TAG, "onItemClick: url " + URL);
+                    Intent intent = new Intent(to_do.this, Todo_content.class);
+                    intent.putExtra("itemID", itemID);
+                    intent.putExtra("title", title);
+                    intent.putExtra("url", URL);
+                    startActivity(intent);
                 }
             }
         });

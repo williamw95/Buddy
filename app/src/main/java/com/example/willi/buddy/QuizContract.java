@@ -19,6 +19,7 @@ public final class QuizContract {
 
     public static class UserTable{
         public static final String TABLE_UNAME = "user";
+        public static final String TITLE_ID = "id";
         public static final String USER_TITLE = "title";
         public static final String USER_URL = "hyperlink";
     }

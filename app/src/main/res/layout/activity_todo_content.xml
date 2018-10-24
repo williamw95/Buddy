@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Todo_content"
+    android:orientation="vertical"
+    android:background="@drawable/cloudbackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/todo_txtTitle"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:capitalize="sentences"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btn_viewcontent"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_margin="10dp"
+        android:layout_weight="1"
+        android:background="#ffffba"
+        android:foreground="?attr/selectableItemBackground"
+        android:paddingTop="25dp"
+        android:text="Methods"
+        android:textAllCaps="false"
+        android:textColor="#2f2e2e"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/btn_delcontent"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_margin="10dp"
+        android:layout_weight="1"
+        android:background="#baffc9"
+        android:drawableTop="@drawable/ic_list"
+        android:foreground="?attr/selectableItemBackground"
+        android:paddingTop="25dp"
+        android:text="Clear To-Do"
+        android:textAllCaps="false"
+        android:textColor="#2f2e2e"
+        android:textSize="18sp" />
+    </LinearLayout>
+
+</LinearLayout>
