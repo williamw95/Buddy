@@ -3,6 +3,6 @@
     <string name="title_quiz">Quiz</string>
     <string name="title_Todo">To-Do</string>
     <string name="title_notifications">Notifications</string>
-    <string name="app_desc">Welcome to Buddy, your one stop learning app for INFS1609. Select Quiz to test your knowledge or select To-Do to view your learning objective</string>
+    <string name="app_desc">Welcome to Buddy, your one stop learning app for INFS1609. \n Select Quiz to test your knowledge or select To-Do to view your learning objective or search Stackoverflow for any questions\n</string>
     <string name="warning">Are you sure you want to end the quiz?</string>
 </resources>

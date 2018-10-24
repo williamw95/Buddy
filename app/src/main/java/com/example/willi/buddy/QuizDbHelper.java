@@ -179,4 +179,12 @@ public class QuizDbHelper extends SQLiteOpenHelper {
         db.insert(QuizContract.UserTable.TABLE_UNAME, null, contentValues);
         Log.d(TAG, "addNewURL: Title and URL added into User table");
     }
+
+    public Cursor getRowData(String title){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + QuizContract.UserTable.TABLE_UNAME +
+                " WHERE " + QuizContract.UserTable.USER_TITLE + " = '" + title + "'";
+        Cursor data = db.rawQuery(query, null);
+        return data;
+    }
 }

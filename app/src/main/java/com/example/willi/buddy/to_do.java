@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -54,6 +56,27 @@ public class to_do extends AppCompatActivity {
         //create the list adapter and set the adapter
         final ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listData);
         mListView.setAdapter(adapter);
+
+        //set an onItemClickListener to the ListView
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                String titlename = adapterView.getItemAtPosition(position).toString();
+                Log.d(TAG, "onItemClick: you clicked on " + titlename);
+                Cursor data2 = mDatabaseHelper.getRowData(titlename);
+                int itemID =-1;
+                String title = null;
+                String URL = null;
+                while(data2.moveToNext()){
+                    itemID = data2.getInt(0);
+                    title = data2.getString(1);
+                    URL = data2.getString(2);
+                }
+                if(itemID > -1){
+                    Log.d(TAG, "onItemClick: This ID is: " + itemID);
+                }
+            }
+        });
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
