@@ -17,6 +17,13 @@ import android.widget.Toast;
 
 import java.net.URL;
 
+/*
+    This class will get intent from To-Do class and based on the resources link (website or YT link),
+    it will change the button Icon respectively. User can view content and it will open link or open
+    another activity which have Youtube API embeded.
+ */
+
+
 public class Todo_content extends AppCompatActivity {
 
     Button btn_contentview;
@@ -90,6 +97,7 @@ public class Todo_content extends AppCompatActivity {
             });
         }
 
+        //will call the delete function and redirect them back to To-Do list page
         btn_delContent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,8 +121,7 @@ public class Todo_content extends AppCompatActivity {
         });
     }
 
-
-
+    //Delete data row from To-Do table
     private void deleterow(int id, String title){
         mDatabaseHelper = new QuizDbHelper(this);
         mDatabaseHelper.deleteName(id, title);

@@ -20,12 +20,16 @@ import com.google.android.youtube.player.YouTubePlayerView;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/*
+    This class will create the YouTube API and user can watch the video from the App.
+ */
+
 public class Youtube extends YouTubeBaseActivity {
+
+    private static final String TAG = "YoutubeActivity";
 
     TextView mTxtTitle;
     Button btn_back;
-
-    private static final String TAG = "YoutubeActivity";
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -61,8 +65,8 @@ public class Youtube extends YouTubeBaseActivity {
         Intent intent = getIntent();
         final String YTNAME = intent.getStringExtra("YTitemName");
         final String YTURL = intent.getStringExtra("YTitemURL");
-
         mTxtTitle.setText(YTNAME);
+
         String newURL = extractYTid(YTURL);
 
         playVideo(newURL, youTubePlayerView);
@@ -92,22 +96,20 @@ public class Youtube extends YouTubeBaseActivity {
         return null;
     }
 
-
+    //initialize youtube player view
     public void playVideo(final String videoId, YouTubePlayerView youTubePlayerView) {
-        //initialize youtube player view
         youTubePlayerView.initialize("AIzaSyD4yFOVkXHu7WHoNV9bQ_ZjWd7CvOxH7Xk",
                 new YouTubePlayer.OnInitializedListener() {
                     @Override
                     public void onInitializationSuccess(YouTubePlayer.Provider provider,
                                                         YouTubePlayer youTubePlayer, boolean b) {
                         String temp = "jvoGw_wwquM";
-                        youTubePlayer.cueVideo(temp);
+                        youTubePlayer.cueVideo(videoId);
                     }
 
                     @Override
                     public void onInitializationFailure(YouTubePlayer.Provider provider,
                                                         YouTubeInitializationResult youTubeInitializationResult) {
-
                     }
                 });
     }

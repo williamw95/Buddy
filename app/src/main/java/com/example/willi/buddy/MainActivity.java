@@ -16,13 +16,20 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final String PREFS_NAME = "MyPrefsFile";
+    /* MainActivity main function
+       1. When app first boot, will check if any To-do record exist in DB, dialog box appear if not.
+    */
 
+    /*Declaring of objects and variables
+        including bottom navigation bar
+    */
+    private final String PREFS_NAME = "MyPrefsFile";
     public static final String WITHSPACE = "com.example.willi.buddy.MESSAGE";
 
     private EditText meTxtSearch;
     private Button mbtn_search, mbtn_Quiz, mbtn_todo;
 
+    //Navigation bar, on item select listener
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -39,6 +46,51 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     };
+
+    /*
+    Methods
+     */
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        mbtn_search = findViewById(R.id.btn_search);
+        mbtn_Quiz = findViewById(R.id.home_btnQuiz);
+        mbtn_todo = findViewById(R.id.home_btnTodo);
+        meTxtSearch = findViewById(R.id.etxtSearch);
+
+        BottomNavigationView navigation = findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        //Button on click listener
+        mbtn_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, searchresult.class);
+                  String schWspace  = meTxtSearch.getText().toString();
+                intent.putExtra(WITHSPACE, schWspace);
+                startActivity(intent);
+            }
+        });
+
+        mbtn_Quiz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, quiz_home.class));
+            }
+        });
+
+        mbtn_todo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, to_do.class));
+            }
+        });
+
+    }
+    //Call checkRowexist method and show dialog box if method return false
 
     @Override
     protected void onStart() {
@@ -64,55 +116,16 @@ public class MainActivity extends AppCompatActivity {
             settings.edit().putBoolean("my_first_time", false).commit();
         }
     }
-
-    @Override
-    public void onBackPressed() {
-        moveTaskToBack(true);
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        mbtn_search = findViewById(R.id.btn_search);
-        mbtn_Quiz = findViewById(R.id.home_btnQuiz);
-        mbtn_todo = findViewById(R.id.home_btnTodo);
-        meTxtSearch = findViewById(R.id.etxtSearch);
-
-        mbtn_search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, searchresult.class);
-                  String schWspace  = meTxtSearch.getText().toString();
-                intent.putExtra(WITHSPACE, schWspace);
-                startActivity(intent);
-            }
-        });
-
-        mbtn_Quiz.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, quiz_home.class));
-            }
-        });
-
-        mbtn_todo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, to_do.class));
-            }
-        });
-
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-    }
-
-
+    //Check DB for records, return true any records found
     public boolean checkRowexist(){
         QuizDbHelper mDatabaseHelper;
         mDatabaseHelper = new QuizDbHelper(this);
         boolean check = mDatabaseHelper.checkAnyRowexist();
         return check;
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
     }
 }

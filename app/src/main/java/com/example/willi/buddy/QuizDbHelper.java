@@ -9,6 +9,10 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+      All methods of SQlite database funtionality
+ */
+
 
 public class QuizDbHelper extends SQLiteOpenHelper {
 
@@ -20,11 +24,10 @@ public class QuizDbHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-
+    //create database table
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        //this.db = db;
-        Log.d(TAG, "onCreate: Database creating");
+        Log.d(TAG, "Database table creating");
 
         String SQL_CREATE_QUIZBANK = "CREATE TABLE " +
                 QuizContract.QuestionsTable.TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -47,16 +50,17 @@ public class QuizDbHelper extends SQLiteOpenHelper {
 
         sqLiteDatabase.execSQL(SQL_CREATE_QUIZBANK);
         sqLiteDatabase.execSQL(SQL_CREATE_USER);
-        Log.d(TAG, "onCreate: Database created");
+        Log.d(TAG, "Database table created");
                  fillQuizBank(sqLiteDatabase);
     }
-
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL("DROP IF TABLE EXISTS " + QuizContract.QuestionsTable.TABLE_NAME);
         onCreate(sqLiteDatabase);
     }
+
+    //Creating questions object
     private void fillQuizBank(SQLiteDatabase db) {
         Question q1 = new Question("Suppose your method does not return any value, which of the following keywords can be used as a return type?","A: return","B: void","C: Boolean","D: String",2,"https://www.youtube.com/watch?v=-IJ5izjbWIA",1,"using void in methods");
         insertToDB(q1,db);
@@ -88,6 +92,8 @@ public class QuizDbHelper extends SQLiteOpenHelper {
         Question q14 = new Question("What restriction is there on using the super reference in a constructor?","A:  It can only be used in the parent's constructor.","B: Only one child class can use it.","C:  It must be used in the first statement of the constructor. ","D: None of the above",3,"https://www.youtube.com/watch?v=jvoGw_wwquM",3,"how to use super reference, in heritance"); //"https://stackoverflow.com/questions/4090834/when-do-i-use-super"
         insertToDB(q14,db);
     }
+
+    //inserting question object into DB using Content values
     private void insertToDB(Question question, SQLiteDatabase sqLiteDatabase){
         ContentValues cv = new ContentValues();
         Log.d(TAG, "insertToDB: content v created");
@@ -105,6 +111,7 @@ public class QuizDbHelper extends SQLiteOpenHelper {
         Log.d(TAG, "insertToDB: db data insert");
     }
 
+    //Extracting questions based on Quizcat
     public List<Question> getAllQuestions(int cat) {
         List<Question> questionList = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
@@ -131,6 +138,7 @@ public class QuizDbHelper extends SQLiteOpenHelper {
         return questionList;
     }
 
+    //Querying DB for To-do list
     public Cursor getTODOData(){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * FROM " + QuizContract.UserTable.TABLE_UNAME;
@@ -141,6 +149,7 @@ public class QuizDbHelper extends SQLiteOpenHelper {
     //return true if record exist
     public boolean checkRowexist(String title){
         SQLiteDatabase db = this.getWritableDatabase();
+
         String query = "SELECT *  FROM " + QuizContract.UserTable.TABLE_UNAME +
                 " WHERE " + QuizContract.UserTable.USER_TITLE +
                  " = '" + title + "'";
@@ -156,9 +165,10 @@ public class QuizDbHelper extends SQLiteOpenHelper {
         }
     }
 
-    //return true if ANY record exist
+    //return true if ANY record exist - used when app is first opened
     public boolean checkAnyRowexist(){
         SQLiteDatabase db = this.getWritableDatabase();
+
         String query = "SELECT *  FROM " + QuizContract.UserTable.TABLE_UNAME + ";";
         Cursor cusor = db.rawQuery(query,null);
         if(cusor.getCount() <=0){
@@ -172,6 +182,7 @@ public class QuizDbHelper extends SQLiteOpenHelper {
         }
     }
 
+    //add the question title and learn resources URL into User To-Do table - used when user get quiz wrong
     public void addNewURL(String title, String URL){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -182,6 +193,7 @@ public class QuizDbHelper extends SQLiteOpenHelper {
         Log.d(TAG, "addNewURL: Title and URL added into User table");
     }
 
+    //get all To-do data from To-Do table - used when user select To-Do function
     public Cursor getRowData(String title){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * FROM " + QuizContract.UserTable.TABLE_UNAME +
@@ -190,6 +202,7 @@ public class QuizDbHelper extends SQLiteOpenHelper {
         return data;
     }
 
+    //Delete row record from To-Do table - used when user want to clear their To-Do list
     public void deleteName(int id, String name){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "DELETE FROM " + QuizContract.UserTable.TABLE_UNAME + " WHERE "

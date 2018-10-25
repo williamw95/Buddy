@@ -28,7 +28,13 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
+
+/*
+    This provide API for Google Custom Search. Allow user to search on MainActivity page which will display
+    search result from StackOverFlow.com website. Result is return by JSON and pharse and displayed on a list view and User can select
+    result which will then open either Youtube API or phone browser to view content.
+
+ */
 
 public class searchresult extends AppCompatActivity {
 
@@ -43,8 +49,6 @@ public class searchresult extends AppCompatActivity {
     Button mbtn_search;
     String[] listTitle = new String[10];
     String[] listUrl = new String[10];
-    //ArrayList<String> listUrl = new ArrayList<>();
-
     ListAdapter adapter;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -78,13 +82,16 @@ public class searchresult extends AppCompatActivity {
         navigation.getMenu().getItem(0).setCheckable(false);
         navigation.getMenu().getItem(1).setCheckable(false);
 
+        //getting intent of user search from MainActivity page
         Intent intent = getIntent();
         final String withspace = intent.getStringExtra(MainActivity.WITHSPACE);
         eTxtSearch.setText(withspace);
 
+        //extracting any space from the search
         String nospace = withspace.replaceAll(" ", "+");
         initiatesearch(nospace);
 
+        //call initiatesearch again based on new user search criteria
         mbtn_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,9 +99,9 @@ public class searchresult extends AppCompatActivity {
                 initiatesearch(newsearch);
             }
         });
-
     }
 
+    //Google custom search API
     private void initiatesearch(String message)
     {
         // Your API key
@@ -127,7 +134,6 @@ public class searchresult extends AppCompatActivity {
             mProgressBar2.setVisibility(View.VISIBLE);
         }
 
-
         @Override
         protected String doInBackground(URL... urls) {
 
@@ -141,7 +147,6 @@ public class searchresult extends AppCompatActivity {
             } catch (IOException e) {
                 Log.e(TAG, "Http connection ERROR " + e.toString());
             }
-
 
             try {
                 responseCode = conn.getResponseCode();
@@ -189,7 +194,6 @@ public class searchresult extends AppCompatActivity {
                 Log.e(TAG, "Http Response ERROR " + e.toString());
             }
 
-
             return null;
         }
 
@@ -209,6 +213,7 @@ public class searchresult extends AppCompatActivity {
         }
     }
 
+    //pharsing JSON into Array
     private void pharsing(String result) {
         if (result != null) {
             try {
@@ -219,29 +224,25 @@ public class searchresult extends AppCompatActivity {
                     int j =0;
                     String url = itemsArray.getJSONObject(i).getString("link");
                     Log.d(TAG, "pharsing URL: " + url);
-                    //listUrl.add(i,url);
                     listUrl[i] = url;
 
                     String title = itemsArray.getJSONObject(i).getJSONObject("pagemap").getJSONArray("question").getJSONObject(0).getString("name");
                     Log.d(TAG, "pharsing: Title " + title);
-                    //listTitle.add(i,title);
                     listTitle[i] = title;
 
                 }
-
             } catch (JSONException e) {
                 e.printStackTrace();
                 e.getMessage();
             }
-
         populateListview();
         }
     }
 
+    //populate listView
     private void populateListview(){
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listTitle);
         mListview.setAdapter(adapter);
-
 
         mListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

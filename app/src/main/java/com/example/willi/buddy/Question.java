@@ -1,5 +1,8 @@
 package com.example.willi.buddy;
 
+    /*
+    Create Question object
+ */
 public class Question {
     private String question;
     private String option1;
@@ -11,11 +14,10 @@ public class Question {
     private int quizIdentifier;
     private String title;
 
-    public Question(){}
+        public Question() {
+        }
 
-
-
-    public Question(String question, String option1, String option2, String option3, String option4, int answerNr, String resource, int identifier, String title) {
+        public Question(String question, String option1, String option2, String option3, String option4, int answerNr, String resource, int identifier, String title) {
         this.question = question;
         this.option1 = option1;
         this.option2 = option2;

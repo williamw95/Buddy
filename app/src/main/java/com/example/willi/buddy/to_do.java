@@ -16,17 +16,33 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+/*
+    This class will call DB and extract user To-Do and display on a list view, user can select the topic
+    they which to visit and will open To-Do Content page
+ */
+
 public class to_do extends AppCompatActivity {
 
     QuizDbHelper mDatabaseHelper;
     private ListView mListView;
     private static final String TAG = "To-DO";
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        startActivity(new Intent(to_do.this, MainActivity.class));
-    }
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_Quiz:
+                    startActivity(new Intent(to_do.this, quiz_home.class));
+                    return true;
+                case R.id.navigation_todo:
+                    //mTextMessage.setText(R.string.title_Todo);
+                    return true;
+            }
+            return false;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,22 +102,9 @@ public class to_do extends AppCompatActivity {
         });
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_Quiz:
-                    startActivity(new Intent(to_do.this, quiz_home.class));
-                    return true;
-                case R.id.navigation_todo:
-                    //mTextMessage.setText(R.string.title_Todo);
-                    return true;
-            }
-            return false;
-        }
-    };
-
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(to_do.this, MainActivity.class));
+    }
 }
