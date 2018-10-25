@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -68,10 +69,17 @@ public class MainActivity extends AppCompatActivity {
         mbtn_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, searchresult.class);
-                  String schWspace  = meTxtSearch.getText().toString();
-                intent.putExtra(WITHSPACE, schWspace);
-                startActivity(intent);
+                String schWspace  = meTxtSearch.getText().toString().trim();
+                if(!schWspace.equals("")){
+                    Intent intent = new Intent(MainActivity.this, searchresult.class);
+                    intent.putExtra(WITHSPACE, schWspace);
+                    startActivity(intent);
+                }
+                else
+                {
+                    Toast.makeText(MainActivity.this, "Please enter something to search", Toast.LENGTH_SHORT).show();
+                    meTxtSearch.requestFocus();
+                }
             }
         });
 

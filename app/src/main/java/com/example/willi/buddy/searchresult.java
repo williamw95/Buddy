@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -95,8 +96,15 @@ public class searchresult extends AppCompatActivity {
         mbtn_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String newsearch = eTxtSearch.getText().toString();
-                initiatesearch(newsearch);
+                String newsearch = eTxtSearch.getText().toString().trim();
+                if(!newsearch.equals("")){
+                    initiatesearch(newsearch);
+                }
+                else
+                {
+                    Toast.makeText(searchresult.this, "Please enter a search criteria", Toast.LENGTH_SHORT).show();
+                    eTxtSearch.requestFocus();
+                }
             }
         });
     }
@@ -231,10 +239,12 @@ public class searchresult extends AppCompatActivity {
                     listTitle[i] = title;
 
                 }
+
             } catch (JSONException e) {
                 e.printStackTrace();
                 e.getMessage();
             }
+
         populateListview();
         }
     }
