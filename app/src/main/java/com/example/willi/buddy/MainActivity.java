@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
         mbtn_search = findViewById(R.id.btn_search);
         mbtn_Quiz = findViewById(R.id.home_btnQuiz);
         mbtn_todo = findViewById(R.id.home_btnTodo);
+        meTxtSearch = findViewById(R.id.etxtSearch);
 
         mbtn_search.setOnClickListener(new View.OnClickListener() {
             @Override

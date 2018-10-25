@@ -48,7 +48,7 @@ public class to_do extends AppCompatActivity {
         //get the data and append to a list
         Cursor data = mDatabaseHelper.getTODOData();
         ArrayList<String> listData = new ArrayList<>();
-        while(data.moveToNext()){
+        while (data.moveToNext()) {
             //get the value from the database in column 1
             //then add it to the ArrayList
             listData.add(data.getString(1));
@@ -64,15 +64,15 @@ public class to_do extends AppCompatActivity {
                 String titlename = adapterView.getItemAtPosition(position).toString();
                 Log.d(TAG, "onItemClick: you clicked on " + titlename);
                 Cursor data2 = mDatabaseHelper.getRowData(titlename);
-                int itemID =-1;
+                int itemID = -1;
                 String title = null;
                 String URL = null;
-                while(data2.moveToNext()){
+                while (data2.moveToNext()) {
                     itemID = data2.getInt(0);
                     title = data2.getString(1);
                     URL = data2.getString(2);
                 }
-                if(itemID > -1){
+                if (itemID > -1) {
                     Log.d(TAG, "onItemClick: This ID is: " + itemID);
                     Log.d(TAG, "onItemClick: title " + title);
                     Log.d(TAG, "onItemClick: url " + URL);
@@ -102,8 +102,6 @@ public class to_do extends AppCompatActivity {
             return false;
         }
     };
-
-
 
 
 }

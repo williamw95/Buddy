@@ -11,12 +11,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/quizbackground"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/TxtQuestions"
             android:layout_width="match_parent"
             android:layout_height="140dp"
+            android:layout_margin="10dp"
             android:textAlignment="center"
             android:textColor="#393737"
             android:textSize="28sp" />
@@ -33,25 +37,26 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:padding="10dp"
+                android:ellipsize="end"
                 android:foreground="?attr/selectableItemBackground"
+                android:padding="10dp"
                 android:textAlignment="center"
-                android:visibility="visible"
                 android:textAllCaps="false"
-                android:textSize="13sp"
-                android:ellipsize="end"/>
+                android:textSize="17dp"
+                android:visibility="visible" />
+
             <Button
                 android:id="@+id/btnOptB"
                 android:layout_width="0dp"
-                android:foreground="?attr/selectableItemBackground"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:ellipsize="end"
+                android:foreground="?attr/selectableItemBackground"
                 android:padding="10dp"
-                android:visibility="visible"
                 android:textAlignment="center"
                 android:textAllCaps="false"
-                android:textSize="13sp"
-                android:ellipsize="end"/>
+                android:textSize="17dp"
+                android:visibility="visible" />
         </LinearLayout>
 
         <LinearLayout
@@ -64,31 +69,35 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:ellipsize="end"
                 android:foreground="?attr/selectableItemBackground"
                 android:padding="10dp"
-                android:visibility="visible"
                 android:textAlignment="center"
                 android:textAllCaps="false"
-                android:textSize="13sp"
-                android:ellipsize="end"/>
+                android:textSize="17dp"
+                android:visibility="visible" />
+
             <Button
                 android:id="@+id/btnOptD"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:padding="10dp"
-                android:visibility="visible"
-                android:textAlignment="center"
+                android:ellipsize="end"
                 android:foreground="?attr/selectableItemBackground"
+                android:padding="10dp"
+                android:textAlignment="center"
                 android:textAllCaps="false"
-                android:textSize="13sp"
-                android:ellipsize="end"/>
+                android:textSize="17dp"
+                android:visibility="visible" />
         </LinearLayout>
-        <TextView
+
+        <ProgressBar
+            android:id="@+id/progressBarCounter"
+            style="@android:style/Widget.Holo.ProgressBar.Horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:id="@+id/txtCounter"
-            android:textSize="15sp" />
+            android:layout_margin="5dp"
+            android:textSize="15dp" />
     </LinearLayout>
 </RelativeLayout>

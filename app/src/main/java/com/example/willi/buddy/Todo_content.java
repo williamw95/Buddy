@@ -4,9 +4,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -20,6 +23,25 @@ public class Todo_content extends AppCompatActivity {
     Button btn_delContent;
     TextView txtTitle;
     QuizDbHelper mDatabaseHelper;
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_Quiz:
+                    startActivity(new Intent(Todo_content.this, quiz_home.class));
+                    return true;
+                case R.id.navigation_todo:
+                    startActivity(new Intent(Todo_content.this, to_do.class));
+                    return true;
+            }
+            return false;
+        }
+    };
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +57,11 @@ public class Todo_content extends AppCompatActivity {
         final String itemURL = intent.getStringExtra("url");
 
         txtTitle.setText(itemTitle);
+
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.getMenu().getItem(0).setCheckable(false);
+        navigation.getMenu().getItem(1).setCheckable(false);
 
         //Checking for URL that and set Button logo accordingly
         if(chkURLorYT(itemURL) == true){
@@ -85,6 +112,8 @@ public class Todo_content extends AppCompatActivity {
             }
         });
     }
+
+
 
     private void deleterow(int id, String title){
         mDatabaseHelper = new QuizDbHelper(this);

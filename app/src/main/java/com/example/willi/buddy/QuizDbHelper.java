@@ -6,12 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-
-import com.example.willi.buddy.QuizContract;
-
-import org.json.JSONException;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,10 +15,6 @@ public class QuizDbHelper extends SQLiteOpenHelper {
     private static final String TAG = "DatabaseHelper";
     private static final String DATABASE_NAME = "buddy.db";
     private static final int DATABASE_VERSION = 1;
-
-    //to-do table
-    //private static final String DATABASE_NAME_USER = "user.db";
-    //private static final String KEY_TO_DO = "todo";
 
     public QuizDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -68,17 +58,14 @@ public class QuizDbHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
     private void fillQuizBank(SQLiteDatabase db) {
-        Question q1 = new Question("Suppose your method does not return any value, which of the following keywords can be used as a return type?","A: return","B: void","C: Boolean","D: String",2,"https://www.tutorialspoint.com/java/java_methods.htm",1,"using void in methods");
+        Question q1 = new Question("Suppose your method does not return any value, which of the following keywords can be used as a return type?","A: return","B: void","C: Boolean","D: String",2,"https://www.youtube.com/watch?v=-IJ5izjbWIA",1,"using void in methods");
         insertToDB(q1,db);
         Question q2 = new Question("A variable defined inside a method is referred to as ______.","A: a global variable","B: a local variable","C: a method variable","D: a useful variable",2,"https://www.geeksforgeeks.org/variable-scope-in-java/",1,"local variables");
         insertToDB(q2,db);
         Question q3 = new Question("What is/are the benefits of using Methods?","A: write a method once and reuse it anywhere","B: information hiding. Hide the implementation from the user","C: Allow encapsuation","D: All of the above",4,"https://www.cs.drexel.edu/~introcs/Fa15/notes/06.1_OOP/Advantages.html?CurrentSlide=3",1,"benefit of using methods");
         insertToDB(q3,db);
-        Question q4 = new Question("What is wrong with the following method call? displayValue (double x);","A: There is nothing wrong with the statement","B: displayValue will not accept a parameter","C: Do not include the data type in the method call","D: Have a String variable called x" ,3,"https://www.tutorialspoint.com/java/java_methods.htm",1,"invoking methods");
+        Question q4 = new Question("What is wrong with the following method call? displayValue (double x);","A: There is nothing wrong with the statement","B: displayValue will not accept a parameter","C: Do not include the data type in the method call","D: Have a String variable called x" ,3,"https://www.youtube.com/watch?v=-IJ5izjbWIA",1,"invoking methods");
         insertToDB(q4,db);
-        Question q5 = new Question("What is the difference between a method and message?","A: A method is a sequence of instructions that a class or object uses to perform a task, and a message is a signal that tells the object to perform a tasks","B: A method is a prototype of how a computer should carry out a task, and a message implements the method","C: A message is a sequence of instructions to tell the object what to do, and a message is a packet of information used to communicate between two users on a network","D: A method and message is the same thing",1,"https://www.allinterview.com/showanswers/237/what-is-the-difference-between-method-and-message.html",1,"difference between method and message");
-        insertToDB(q5,db);
-
         Question q6 = new Question("Which of the following, if any, is an invalid array declaration?","A: String[] names = new String[5];","B: String names[] = new String[5];","C: Double names[] = new Double[5]","D: All are valid",4,"https://stackoverflow.com/questions/1200621/how-do-i-declare-and-initialize-an-array-in-java",2,"how to declare arrays");
         insertToDB(q6,db);
         Question q7 = new Question("Which of the following statements gets the number of integers in the array that follows? \n" +
@@ -90,7 +77,6 @@ public class QuizDbHelper extends SQLiteOpenHelper {
         Question q9 = new Question("What is the highest index value associated with the array that follows?\n" +
                 "byte[] values = new byte[x];\n","A: x","B: x - 1","C: x + 1 ","D: All are highest",2,"https://www.javatpoint.com/array-in-java",2,"array index values");
         insertToDB(q9,db);
-
         Question q10 = new Question("Which of the following is correct syntax for defining a new class Jolt based on the superclass SoftDrink?","class Jolt implements SoftDrink{}","class Jolt defines SoftDrink{}",": class Jolt extends SoftDrink{} ","D: All are correct",3,"https://www.tutorialspoint.com/java/java_inheritance.htm",3,"defining a class using inheritance");
         insertToDB(q10,db);
         Question q11 = new Question("Does a subclass inherit both member variables and methods?","A: No, only member variables are inherited","B: No, only methods are inherited","C: Yes, both are inherited ","D: No, both are not inherited",3,"https://docs.oracle.com/javase/tutorial/java/IandI/subclasses.html",3,"subclass inheritance");

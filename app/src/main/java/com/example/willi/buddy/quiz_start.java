@@ -9,6 +9,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +28,8 @@ public class quiz_start extends AppCompatActivity {
     private boolean answered;
     private TextView TxtCounter;
     QuizDbHelper dbHelper;
+    private ProgressBar mProgressbar = null;
+
 
 
     @Override
@@ -57,7 +60,8 @@ public class quiz_start extends AppCompatActivity {
         OptB = findViewById(R.id.btnOptB);
         OptC = findViewById(R.id.btnOptC);
         OptD = findViewById(R.id.btnOptD);
-        TxtCounter = findViewById(R.id.txtCounter);
+        //TxtCounter = findViewById(R.id.txtCounter);
+        mProgressbar = findViewById(R.id.progressBarCounter);
 
         Intent intent = getIntent();
         final int questcat = intent.getIntExtra("quizCat", 0);
@@ -65,6 +69,9 @@ public class quiz_start extends AppCompatActivity {
         questionList = dbHelper.getAllQuestions(questcat);
         questioncountTotal = questionList.size();
         Collections.shuffle(questionList);
+
+        mProgressbar.setMax(questioncountTotal);
+        mProgressbar.setProgress(0);
 
         showNextQuestion();
 
@@ -145,6 +152,7 @@ public class quiz_start extends AppCompatActivity {
     }
 
     private void endquiz() {
+        mProgressbar.setProgress(questioncountTotal);
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
         mBuilder.setMessage("End of Quiz, your TO-DO list has been updated.").setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
@@ -162,7 +170,7 @@ public class quiz_start extends AppCompatActivity {
 
             currentQuestion = questionList.get(questionCounter);
             int qcount =  questionCounter+ 1;
-            TxtCounter.setText("Question no: " + qcount + " / " + questioncountTotal);
+            //TxtCounter.setText("Question no: " + qcount + " / " + questioncountTotal);
             ques.setText(currentQuestion.getQuestion());
             OptA.setText(currentQuestion.getOption1());
             OptB.setText(currentQuestion.getOption2());
@@ -170,6 +178,9 @@ public class quiz_start extends AppCompatActivity {
             OptD.setText(currentQuestion.getOption4());
             //questionCounter++;
             answered = false;
+
+            mProgressbar.setProgress(questionCounter);
+
         }
     }
 }

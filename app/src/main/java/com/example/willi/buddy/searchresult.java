@@ -3,9 +3,12 @@ package com.example.willi.buddy;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -44,6 +47,23 @@ public class searchresult extends AppCompatActivity {
 
     ListAdapter adapter;
 
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_Quiz:
+                    startActivity(new Intent(searchresult.this, quiz_home.class));
+                    return true;
+                case R.id.navigation_todo:
+                    startActivity(new Intent(searchresult.this, to_do.class));
+                    return true;
+            }
+            return false;
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +73,10 @@ public class searchresult extends AppCompatActivity {
         mListview = findViewById(R.id.resultListview);
         eTxtSearch = findViewById(R.id.eTxtsearchbar);
         mbtn_search = findViewById(R.id.btn_searchbar);
-
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.getMenu().getItem(0).setCheckable(false);
+        navigation.getMenu().getItem(1).setCheckable(false);
 
         Intent intent = getIntent();
         final String withspace = intent.getStringExtra(MainActivity.WITHSPACE);
@@ -69,6 +92,7 @@ public class searchresult extends AppCompatActivity {
                 initiatesearch(newsearch);
             }
         });
+
     }
 
     private void initiatesearch(String message)
